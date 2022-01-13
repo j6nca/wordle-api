@@ -17,7 +17,7 @@ def loadWords():
     return words
 
 answers = loadAns()
-words = loadWords()
+valid_words = loadWords()
 
 @app.route('/', methods=['GET'])
 def root():
@@ -26,10 +26,9 @@ def root():
 
 @app.route('/today', methods=['GET'])
 def today():
-    # arg = request.args['arg1']
     return "hello world"
 
 @app.route('/words', methods=['GET'])
 def words():
-    return words
+    return valid_words
 
