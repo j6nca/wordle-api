@@ -13,7 +13,7 @@ def loadAns():
     return ansList
 
 def loadWords():
-    wordsFile = open("answers", "r")
+    wordsFile = open("words", "r")
     words = wordsFile.read()
     wordsFile.close()
     wordsList = words.replace('"', "").split(",")
@@ -21,7 +21,6 @@ def loadWords():
 
 answers = loadAns()
 validWords = loadWords()
-
 # print(answers.index('favor')) -> 207
 # start date = today - 207 days -> June 19, 2021
 startDate = datetime.datetime(2021, 6, 19)
@@ -53,6 +52,6 @@ def day():
     startDateTZ = tz.localize(startDate)
     currDate = datetime.datetime.now(tz)
     ansIndex = (currDate - startDateTZ).days
-    return "day " + ansIndex
+    return "day " + str(ansIndex)
 
 
