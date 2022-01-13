@@ -1,6 +1,8 @@
 import flask
 from flask import request
 import datetime
+from pytz import timezone
+
 app = flask.Flask(__name__)
 
 def loadAns():
@@ -23,6 +25,8 @@ validWords = loadWords()
 # print(answers.index('favor')) -> 207
 # start date = today - 207 days -> June 19, 2021
 startDate = datetime.datetime(2021, 6, 19)
+print(datetime.datetime.now()-startDate)
+print(answers[207])
 
 @app.route('/', methods=['GET'])
 def root():
@@ -31,11 +35,20 @@ def root():
 
 @app.route('/today', methods=['GET'])
 def today():
-    currDate = datetime.datetime.now()
+    tz = timezone('EST')
+    currDate = datetime.datetime.now(tz)
     ansIndex = (currDate - startDate).days
     return answers[ansIndex]
 
 @app.route('/words', methods=['GET'])
 def words():
     return validWords
+
+@app.route('/day', methods=['GET'])
+def day():
+    tz = timezone('EST')
+    currDate = datetime.datetime.now(tz)
+    ansIndex = (currDate - startDate).days
+    return "day " + ansIndex
+
 
