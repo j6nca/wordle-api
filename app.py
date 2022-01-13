@@ -16,11 +16,11 @@ def loadWords():
     wordsFile = open("words", "r")
     words = wordsFile.read()
     wordsFile.close()
-    wordsList = words.replace('"', "").split(",")
-    return wordsList
+    return words
 
 answers = loadAns()
 validWords = loadWords()
+
 # print(answers.index('favor')) -> 207
 # start date = today - 207 days -> June 19, 2021
 startDate = datetime.datetime(2021, 6, 19)
@@ -31,11 +31,11 @@ startDate = datetime.datetime(2021, 6, 19)
 
 @app.route('/', methods=['GET'])
 def root():
-    return "hello world"
+    return "api for wordle, view https://github.com/jngbot/wordle-api for usage"
 
 
-@app.route('/today', methods=['GET'])
-def today():
+@app.route('/answer', methods=['GET'])
+def answer():
     tz = pytz.timezone('EST')
     startDateTZ = tz.localize(startDate)
     currDate = datetime.datetime.now(tz)
@@ -52,6 +52,6 @@ def day():
     startDateTZ = tz.localize(startDate)
     currDate = datetime.datetime.now(tz)
     ansIndex = (currDate - startDateTZ).days
-    return "day " + str(ansIndex)
+    return "Day " + str(ansIndex)
 
 
