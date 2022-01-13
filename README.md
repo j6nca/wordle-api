@@ -1,6 +1,6 @@
 # wordle-api
 an api for the game wordle
-https://wordle-api.herokuapp.com/today
+https://wordle-api.herokuapp.com/
 
 # usage
 | path  | desc                           | example response        |

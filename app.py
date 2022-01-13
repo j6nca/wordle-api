@@ -1,5 +1,5 @@
 import flask
-from flask import request
+from flask import request, render_template
 import datetime
 import pytz
 
@@ -31,7 +31,8 @@ startDate = datetime.datetime(2021, 6, 19)
 
 @app.route('/', methods=['GET'])
 def root():
-    return "api for wordle, view https://github.com/jngbot/wordle-api for usage"
+    return render_template('index.html')
+
 
 
 @app.route('/answer', methods=['GET'])
