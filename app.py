@@ -52,6 +52,6 @@ def day():
     startDateTZ = tz.localize(startDate)
     currDate = datetime.datetime.now(tz)
     ansIndex = (currDate - startDateTZ).days
-    return "Day " + str(ansIndex)
+    return str(ansIndex)
 
 
