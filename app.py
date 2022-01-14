@@ -16,7 +16,8 @@ def loadWords():
     wordsFile = open("words", "r")
     words = wordsFile.read()
     wordsFile.close()
-    return words
+    wordsList = words.replace('"', "").split(",")
+    return wordsList
 
 def getAnsIndex():
     tz = pytz.timezone('EST')
@@ -54,7 +55,7 @@ def day():
 
 @app.route('/words', methods=['GET'])
 def words():
-    return validWords
+    return "[\"" + "\",\"".join(validWords) + "\"]"
 
 # Games?
 @app.route('/random', methods=['GET'])
