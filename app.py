@@ -1,6 +1,7 @@
 import flask
 import datetime
 import pytz
+import random
 
 app = flask.Flask(__name__)
 
@@ -16,6 +17,12 @@ def loadWords():
     words = wordsFile.read()
     wordsFile.close()
     return words
+
+def getAnsIndex():
+    tz = pytz.timezone('EST')
+    startDateTZ = tz.localize(startDate)
+    currDate = datetime.datetime.now(tz)
+    return (currDate - startDateTZ).days
 
 answers = loadAns()
 validWords = loadWords()
@@ -33,25 +40,29 @@ def root():
     return 'api for wordle, view <a href=https://github.com/jngbot/wordle-api>repo</a> for usage'
 
 
+# Dailies
 
 @app.route('/answer', methods=['GET'])
 def answer():
-    tz = pytz.timezone('EST')
-    startDateTZ = tz.localize(startDate)
-    currDate = datetime.datetime.now(tz)
-    ansIndex = (currDate - startDateTZ).days
-    return answers[ansIndex]
+    return answers[getAnsIndex()]
+
+@app.route('/day', methods=['GET'])
+def day():
+    return str(getAnsIndex())
+
+# Misc
 
 @app.route('/words', methods=['GET'])
 def words():
     return validWords
 
-@app.route('/day', methods=['GET'])
-def day():
-    tz = pytz.timezone('EST')
-    startDateTZ = tz.localize(startDate)
-    currDate = datetime.datetime.now(tz)
-    ansIndex = (currDate - startDateTZ).days
-    return str(ansIndex)
+# Games?
+@app.route('/random', methods=['GET'])
+def randAnswer():
+    return random.choice(answers)
+
+@app.route('/random2', methods=['GET'])
+def randWords():
+    return random.choice(validWords)
 
 
